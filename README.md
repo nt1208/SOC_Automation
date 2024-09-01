@@ -1,6 +1,6 @@
 # SOC Automation Project
 ***
-This is my personal project about Security Operation Center (SOC) providing a solution to help SOC analyst get alerts about the anomaly activities happening in their agents automatically.
+This is my personal project in Security Operation Center (SOC) field providing a solution to support SOC analyst get alerts about the anomaly activities happening in their agents automatically.
 
 ### Components
 - **Wazuh (Server, Indexer, Dashboard**): 35.187.244.131
