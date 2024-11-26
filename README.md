@@ -85,7 +85,7 @@ I created a workflow that can process the incident respond. My topology as you c
 <img src='image/image13.png' height=100>
 The `hook_url` value can be found in webhook properties and the `rule_id` value is the rule ID of alert which I want Shuffle to receive detailed information.
 - **HTTP-GET**: I use `curl` method to get `JWT` for authenticating with Wazuh manager. The purpose of this action is I can request Wazuh manager to block malicious IP address. I use this command to get the `JWT`:
-```python
+```
 curl -u <username>:<password> -k -X GET "https://35.187.244.131:55000/security/user/authenticate?raw=true"
 ```
 `username` and `password` can be found  in `wazuh-passwords.txt` file
@@ -99,7 +99,7 @@ This configuration mean every alert which has the level equal to 5 or above, `fi
 We can check if the active reponse exactly work by using `/var/ossec/bin/agent_control` script.
 <img src='image/image17.png' height=100>
 We can try the active response which a random IP addressby using this following command
-```python
+```
 ./agent_control -b 1.1.1.1 -f firewall-drop0 -u 003
 ```
 In Shuffle, I configure the data sending to Wazuh like this:
@@ -133,7 +133,7 @@ For each scenario, I need to configure a little bit.
 - **SQL injection**: This scenario is built for both Ubuntu and Windows agents. All of these need to run **Apache2** on their own machine and some configuration with `ossec.conf` file.
 
 *On Ubuntu machine*
-```python 
+``` 
 <!-- SQL Injection Detection -->
 <ossec_config>
   <localfile>
@@ -143,7 +143,7 @@ For each scenario, I need to configure a little bit.
 </ossec_config>
 ``` 
 *On Windows machine*
-```python
+```
 <!-- SQL Injection Detection -->
 <localfile>
   <log_format>syslog</log_format>
@@ -151,7 +151,7 @@ For each scenario, I need to configure a little bit.
 </localfile>
 ```
 *On attacker machine*
-```python
+```
 curl -XGET "http://<IP_ADDRESS>/users/?id=SELECT+*+FROM+users";
 ```
 Replace the `<IP_ADDRESS>` value to corresponding values.
@@ -162,11 +162,11 @@ As we can see on Wazuh alert, the rule ID for SQL injection is `31103`.
 - **File integrity**: This scenario is also built for Ubuntu and Windows agents. Let's configure `ossec.conf` file.
 *On Ubuntu machine*
 Adding the following command to `<syscheck>` block. `/home/nt1208/secret` is the directory we want to check file integrity.
-```python
+```
 <directories check_all="yes" report_changes="yes" realtime="yes">/home/nt1208/secret</directories>
 ```
 *On Windows machine*
-```python
+```
 <directories check_all="yes" report_changes="yes" realtime="yes">C:\Secret</directories>
 ```
 I create `secret.txt` file in `/home/nt1208/secret`. I will track the status of this file.
@@ -194,7 +194,7 @@ Start **Apache** service with `systemctl start apache`
 
 *On attacker machine*
 Use this command to  emulate brute-force attack:
-```python
+```
 hydra -l badguy -P /usr/share/wordlists/rockyou.txt 34.87.141.84 ssh
 ```
 Check the Wazuh alert and we can see that `5710` is for this attack.
@@ -205,7 +205,7 @@ Check the Wazuh alert and we can see that `5710` is for this attack.
 
  *On Ubuntu machine*
  Add this configuration the `ossec.conf` file
- ```python
+ ```
  <localfile>
     <log_format>syslog</log_format>
     <location>/var/log/apache2/access.log</location>
@@ -253,7 +253,7 @@ sudo wget https://wazuh.com/resources/iplist-to-cdblist.py -O /tmp/iplist-to-cdb
 ```
 4. Convert the alienvault_reputation.ipset file to a .cdb format using the previously downloaded script:
 ```
-sudo /var/ossec/framework/python/bin/python3 /tmp/iplist-to-cdblist.py /var/ossec/etc/lists/alienvault_reputation.ipset /var/ossec/etc/lists/blacklist-alienvault
+sudo /var/ossec/framework//bin/3 /tmp/iplist-to-cdblist.py /var/ossec/etc/lists/alienvault_reputation.ipset /var/ossec/etc/lists/blacklist-alienvault
 ```
 5. Assign the right permissions and ownership to the generated file:
 ```
